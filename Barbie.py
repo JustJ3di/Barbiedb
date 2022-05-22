@@ -1,4 +1,5 @@
 from pyLittle_json import Json
+import socket
 
 class Barbie:
 
@@ -13,40 +14,54 @@ class Barbie:
     
     log = []
 
-    def __init__(self):
-        self.me = {}
-        self.list_key = []
+    def __init__(self,Name:str):
+        self.kv = {}
+        self.name = Name
+        self.log.append(f"create db {Name}")
 
-    def set(self, **kwargs):
-        '''
-        perform a set of a key value on the db
-        '''
-        if len(kwargs.items()) > 1:
-            return "error"
-        for key, value in kwargs.items():
-            self.me[key] = value
+    def set(self, key, value):
+        self.kv[key] = value
+        
     
     
     def get(self, key):
         '''
         perform a search by a key
         '''
-        return self.me.get(key)
+        return self.kv.get(key)
+
+    def delete(self, key):
+        if key in self.kv:
+            del self.kv[key]
+            return True
+        else:
+            return False
+
 
     def store(self):
-        pass
+        js = Json(dict_obj = self.kv)
+        js.serialize(f"{self.name}.json",mode='a')
 
 
 
 
+COMMANDS = ["set","get","mset","mget","delete"]
 
 
-
-test_barbie = Barbie()
-
-test_barbie.set(key = "vaòue")
-test_barbie.set(new_key = "new_value")
-
-print(test_barbie.get("key"))
-
-
+class Server:
+    def __init__(self, host = '127.0.0.1', port = 4231) -> None:
+        self.host = host
+        self.port = port
+    
+    def start(self):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.bind((self.host, self.port))
+            s.listen()
+            conn , addr = s.accept()
+            with conn:
+                while True:
+                    conn.sendall("commands >>")
+                    data = conn.recv(1024)
+                    if not data:
+                        break
+                    

@@ -33,8 +33,8 @@ class Json:
             return self.dict_obj
     
 
-    def serialize(self,file_output:str):
-        with open(file_output,'w') as file:
+    def serialize(self,file_output:str, mode = 'w'):
+        with open(file_output,mode = mode) as file:
             if self.dict_obj != None:    
                 self.serialize_dict(file = file, diz = self.dict_obj)
             elif self.array != None:
@@ -90,12 +90,11 @@ class Json:
                     file.write(f"\"{i}\":{str(self.serialize_simple(diz[i]))},")
             else :
                 if type(diz[i]) == dict:
-                    print(f"\"{i}\":",file=file)
+                    file.write(f"\"{i}\":")
                     self.serialize_dict(file,diz[i])
                 elif type(diz[i]) == list:
                     file.write(f"\"{i}\":")
                     self.serialize_array(file,diz[i])
-                    file.write(",")
                 else:
                     file.write(f"\"{i}\":{str(self.serialize_simple(diz[i]))}")
             line += 1
