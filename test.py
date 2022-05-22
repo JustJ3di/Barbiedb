@@ -1,7 +1,5 @@
-from Barbie import Barbie
+from Barbie import Client
 
-test = Barbie()
-
-test.set(new = "voo")
+c = Client().start()
 
 
