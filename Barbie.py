@@ -1,4 +1,4 @@
-#from pyLittle_json import Json
+from pyLittle_json import Json
 import socket
 
 class Barbie:
@@ -37,11 +37,11 @@ class Barbie:
         else:
             return False
 
-    '''
+    
     def store(self):
         js = Json(dict_obj = self.kv)
         js.serialize(f"{self.name}.json",mode='a')
-    '''
+    
 
 
 
