@@ -9,3 +9,16 @@ all this command have to separeted by $
 
 so for example
 ```set$key$value```
+
+## launch the server
+```python
+    from Barbie import Server
+
+    s = Server().start()
+```
+## launch the client
+```py
+    from Barbie import Client
+
+    c = Client().start()
+```
