@@ -1,5 +1,6 @@
 from Barbie import Client
 
-c = Client().start()
+c = Client()
+c.start()
 
 
