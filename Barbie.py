@@ -1,4 +1,4 @@
-#from pyLittle_json import Json
+from pyLittle_json import Json
 import socket
 
 class Barbie:
@@ -14,13 +14,16 @@ class Barbie:
     
     log = []
 
-    def __init__(self,Name:str):
+    def __init__(self):
         self.kv = {}
-        self.name = Name
-        self.log.append(f"create db {Name}")
+        self.name = None
 
     def set(self, key, value):
         self.kv[key] = value
+    
+    def set_name(self, name):
+        self.name = name
+        self.log.append(f"create db {name}")
         
     
     
@@ -36,13 +39,15 @@ class Barbie:
             return True
         else:
             return False
-
-    ''' 
+    
+    def delete_all(self):
+        self.kv.clear()
+ 
     def store(self):
-        js = Json(dict_obj = self.kv)
+        js = Json(array = [self.kv])
         js.serialize(f"{self.name}.json",mode='a')
     
-    '''
+    
 
 
 class Server:
@@ -55,7 +60,7 @@ class Server:
             s.bind((self.host, self.port))
             s.listen()
             conn, addr = s.accept()
-            new = Barbie("new")
+            new = Barbie()
             with conn:
                 print(f"Connected by {addr}")
                 while True:
@@ -66,6 +71,12 @@ class Server:
                         break
                     elif c_list[0] == 'exit':
                         break
+                    elif c_list[0] == 'name':
+                        new.set_name(c_list[1])
+                    elif c_list[0] == 'store':
+                        new.store()
+                    elif c_list[0] == 'clear':
+                        new.delete_all()
                     elif c_list[0] == 'set':
                         new.set(c_list[1], c_list[2])
                     elif c_list[0] == 'get':
