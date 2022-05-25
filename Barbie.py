@@ -45,8 +45,6 @@ class Barbie:
     '''
 
 
-
-
 class Server:
     def __init__(self, host = '127.0.0.1', port = 4231) -> None:
         self.host = host

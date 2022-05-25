@@ -1,4 +1,4 @@
 from Barbie import Server
 
-s = Server().start()
+s = Server("192.168.1.99",4231).start()
 
