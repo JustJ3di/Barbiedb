@@ -23,7 +23,7 @@ so for example
     s = Server().start()
 ```
 ## launch server from terminal
-python run_server.py ```ip_address``` ```port```
+$ python run_server.py ```ip_address``` ```port```
 
 
 ## launch the client
