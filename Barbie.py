@@ -14,9 +14,9 @@ class Barbie:
     
     log = []
 
-    def __init__(self):
+    def __init__(self,name = None):
         self.kv = {}
-        self.name = None
+        self.name = name
 
     def set(self, key, value):
         self.kv[key] = value

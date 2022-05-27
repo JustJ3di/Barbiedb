@@ -5,6 +5,9 @@ the command are (for now)
 set
 get
 delete
+store
+clear
+name
 all this command have to separeted by $
 
 so for example
